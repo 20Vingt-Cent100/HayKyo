@@ -5,4 +5,6 @@ add_library(HayKyo_Core STATIC
     headers/Application.h
 )
 
-target_include_directories(HayKyo_Core PUBLIC include)
+target_include_directories(HayKyo_Core PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/headers
+)
