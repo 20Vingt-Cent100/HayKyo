@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include "GLFW/glfw3.h"
 
 namespace HayKyo_Core {
 	struct Window_Settings {

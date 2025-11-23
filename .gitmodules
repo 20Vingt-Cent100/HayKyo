@@ -1,0 +1,3 @@
+[submodule "HayKyo_Core/external/GLFW"]
+	path = HayKyo_Core/external/GLFW
+	url = https://github.com/glfw/glfw
