@@ -1,8 +1,7 @@
 #include <Window.h>
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
 
-HayKyo_Core::Window::Window(Window_Settings *param) : m_param(*param)
+HayKyo_Core::Window::Window(Window_Settings *param) 
+	: m_param(*param), m_renderer()
 {
 	init();
 	loop();
@@ -17,7 +16,8 @@ int HayKyo_Core::Window::init()
 	if (!glfwInit())
 		return -1;
 
-	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);	
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+	glfwWindowHint(GLFW_RESIZABLE, m_param.resizable);
 
 	m_window = glfwCreateWindow(m_param.width, m_param.height, m_param.application_name, m_param.monitor, NULL);
 
@@ -26,6 +26,13 @@ int HayKyo_Core::Window::init()
 		glfwTerminate();
 		return -1;
 	}
+
+	uint32_t glfwExtensionCount = 0;
+	const char** glfwExtension;
+
+	glfwExtension = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+	m_renderer.bindAppInfo(&m_param.appInfo);
 
 	return 0;
 }
@@ -38,6 +45,7 @@ int HayKyo_Core::Window::loop()
 		swapBuffers();
 		pollEvent();
 	}
+
 	glfwDestroyWindow(m_window);
 	glfwTerminate();
 	return 0;
