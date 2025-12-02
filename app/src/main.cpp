@@ -14,5 +14,4 @@ int main()
 
 
 	HayKyo_Core::Application app(&param);
-
 }

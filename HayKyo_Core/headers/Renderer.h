@@ -9,7 +9,7 @@ namespace HayKyo_Core {
 
 	class Renderer {
 	private:
-		VkInstance m_instance;
+		VkInstance m_instance = nullptr;
 
 		VkApplicationInfo m_appInfo{};
 		VkInstanceCreateInfo m_createInfo{};
