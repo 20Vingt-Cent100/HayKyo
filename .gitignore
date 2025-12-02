@@ -2,6 +2,7 @@
 /out/
 /CMakeFiles/
 /CMakeCache.txt
+/.vs/
 
 *.exe
 *.obj
