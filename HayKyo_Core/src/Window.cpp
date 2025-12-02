@@ -33,6 +33,7 @@ int HayKyo_Core::Window::init()
 	glfwExtension = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
 	m_renderer.bindAppInfo(&m_param.appInfo);
+	m_renderer.createInstance();
 
 	return 0;
 }
@@ -46,13 +47,19 @@ int HayKyo_Core::Window::loop()
 		pollEvent();
 	}
 
-	glfwDestroyWindow(m_window);
-	glfwTerminate();
+	
 	return 0;
 }
 
 void HayKyo_Core::Window::render() {
 	
+}
+
+void HayKyo_Core::Window::cleanup() {
+	m_renderer.destroyInstance();
+
+	glfwDestroyWindow(m_window);
+	glfwTerminate();
 }
 
 void HayKyo_Core::Window::swapBuffers() {

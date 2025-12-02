@@ -1,4 +1,5 @@
 #include "vulkan/vulkan.h"
+#include <stdexcept>
 
 namespace HayKyo_Core {
 	struct ApplicationInfo {
@@ -8,7 +9,10 @@ namespace HayKyo_Core {
 
 	class Renderer {
 	private:
+		VkInstance m_instance;
+
 		VkApplicationInfo m_appInfo{};
+		VkInstanceCreateInfo m_createInfo{};
 
 	public:
 		Renderer();
@@ -16,5 +20,7 @@ namespace HayKyo_Core {
 
 		void bindAppInfo(ApplicationInfo* appInfo);
 		void bindExtension(uint32_t extensionCount, const char** extensions);
+		void createInstance();
+		void destroyInstance();
 	};
 }

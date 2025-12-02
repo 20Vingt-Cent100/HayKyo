@@ -26,6 +26,7 @@ namespace HayKyo_Core {
 		void render();
 		void swapBuffers();
 		void pollEvent();
+		void cleanup();
 
 	public:
 		Window(Window_Settings* param);
