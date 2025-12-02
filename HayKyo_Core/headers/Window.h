@@ -28,6 +28,9 @@ namespace HayKyo_Core {
 		void pollEvent();
 		void cleanup();
 
+		static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+		static void mouseActionCallBack(GLFWwindow* window, double xpos, double ypos);
+
 	public:
 		Window(Window_Settings* param);
 		~Window();

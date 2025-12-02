@@ -1,4 +1,6 @@
 #include <Window.h>
+#include <Event.h>
+#include <iostream>
 
 HayKyo_Core::Window::Window(Window_Settings *param) 
 	: m_param(*param), m_renderer()
@@ -35,6 +37,8 @@ int HayKyo_Core::Window::init()
 	m_renderer.bindAppInfo(&m_param.appInfo);
 	m_renderer.createInstance();
 
+
+	glfwSetKeyCallback(m_window, keyCallback);
 	return 0;
 }
 
@@ -68,4 +72,13 @@ void HayKyo_Core::Window::swapBuffers() {
 
 void HayKyo_Core::Window::pollEvent() {
 	glfwPollEvents();
+	
+}
+
+void HayKyo_Core::Window::keyCallback(GLFWwindow* window,int key, int scancode, int action, int mods) {
+	std::cout << glfwGetKeyName(key, scancode) << std::endl;
+}
+
+void HayKyo_Core::Window::mouseActionCallBack(GLFWwindow* window, double xpos, double ypos) {
+
 }

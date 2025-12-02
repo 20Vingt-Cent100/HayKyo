@@ -1,10 +1,15 @@
 add_library(HayKyo_Core STATIC 
     src/Window.cpp
     src/Application.cpp
+    src/Renderer.cpp
+    src/Event.cpp
 
     headers/Window.h
     headers/Application.h
- "headers/Renderer.h" "src/Renderer.cpp")
+    headers/Renderer.h
+    headers/Event.h
+    
+)
 
 add_subdirectory(external/GLFW)
 find_package(Vulkan REQUIRED)

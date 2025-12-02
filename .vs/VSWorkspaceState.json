@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\build",
+    "\\build\\app",
+    "\\HayKyo_Core",
+    "\\HayKyo_Core\\external",
+    "\\HayKyo_Core\\headers",
+    "\\HayKyo_Core\\src"
+  ],
+  "SelectedNode": "\\CMakeLists.txt",
+  "PreviewInSolutionExplorer": false
+}
