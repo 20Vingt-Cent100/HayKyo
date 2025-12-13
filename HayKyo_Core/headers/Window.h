@@ -38,11 +38,16 @@ namespace HayKyo_Core {
 		WindowObject(WindowInfo& wInfo, std::function<void(Event&)> EventReceiver);
 		~WindowObject();
 
-
+		void pollEvents();
 		bool isWindowNull();
 		int windowShouldClose();
 	private:
 		GLFWwindow* m_window = nullptr;
 		std::function<void(Event&)>& sendEvent;
+
+		void setCallBacks();
+
+		void static keyInputCallbacks(GLFWwindow* window, int key, int scancode, int action, int mods);
+		void static mouseInputCallbacks(GLFWwindow* window, int button, int action, int mods);
 	};
 }

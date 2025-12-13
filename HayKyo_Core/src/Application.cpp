@@ -6,17 +6,20 @@ HayKyo_Core::App::App(WindowInfo& wInfo)
 
 }
 
-void HayKyo_Core::App::Run() {
+void HayKyo_Core::App::run() {
 	if (m_winObj->isWindowNull()) {
 		glfwTerminate();
 		std::printf("Window could not be created");
 	}
+	appLoop();
+}
 
-	while (m_winObj->windowShouldClose()) {
+void HayKyo_Core::App::appLoop() {
+	while (!m_winObj->windowShouldClose()) {
 
+
+		m_winObj->pollEvents();
 	}
-
-	this->~App();
 }
 
 
@@ -25,5 +28,5 @@ void HayKyo_Core::App::onEvent(Event& e) {
 }
 
 HayKyo_Core::App::~App() {
-	m_winObj->~WindowObject();
+
 }

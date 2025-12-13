@@ -11,11 +11,13 @@ namespace HayKyo_Core {
 		App(WindowInfo&);
 		~App();
 
-		void Run();
+		void run();
 
 	private:
 		std::unique_ptr<WindowObject> m_winObj = nullptr;
+
 		void onEvent(Event&);
+		void appLoop();
 	};
 
 	
