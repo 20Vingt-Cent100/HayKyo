@@ -22,6 +22,7 @@ namespace HayKyo_Core {
 		WINDOWED,
 	};
 
+	/*-- Struct containing information for the creation of the window --*/
 	struct WindowInfo
 	{
 		uint16_t width;
@@ -35,7 +36,7 @@ namespace HayKyo_Core {
 	class WindowObject
 	{
 	public:
-		WindowObject(WindowInfo& wInfo, std::function<void(Event&)> EventReceiver);
+		WindowObject(WindowInfo& wInfo, std::function<void(Event&)> EventReceiver); //Event receiver will receive events thrown by windowObj
 		~WindowObject();
 
 		void pollEvents();
@@ -49,5 +50,10 @@ namespace HayKyo_Core {
 
 		void static keyInputCallbacks(GLFWwindow* window, int key, int scancode, int action, int mods);
 		void static mouseInputCallbacks(GLFWwindow* window, int button, int action, int mods);
+		void static mouseMovementCallbacks(GLFWwindow* window, double xpos, double ypos);
+
+		void handleMouseInput(int button, int action, int mods);
+		void handleKeyInput(int key, int scancode, int action, int mods);
+		void handleMouseMovement(double xpos, double ypos);
 	};
 }
