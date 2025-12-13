@@ -8,7 +8,9 @@ add_library(HayKyo_Core STATIC
     headers/Application.h
     headers/Renderer.h
     headers/Event.h
-    
+    headers/Keys.h
+    headers/Layers.h
+    headers/RenderObject.h
 )
 
 add_subdirectory(external/GLFW)

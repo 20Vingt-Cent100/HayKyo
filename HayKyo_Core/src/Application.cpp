@@ -1,12 +1,29 @@
 #include <Application.h>
 
-HayKyo_Core::Application::Application(Application_Param *param)
-    : m_param(*param), m_window(std::make_unique<Window>(&m_param.window_settings))
+HayKyo_Core::App::App(WindowInfo& wInfo)
+	: m_winObj(std::make_unique<WindowObject>(wInfo, [this](Event& e) {this->onEvent(e); }))
 {
 
 }
 
-HayKyo_Core::Application::~Application()
-{
-    
+void HayKyo_Core::App::Run() {
+	if (m_winObj->isWindowNull()) {
+		glfwTerminate();
+		std::printf("Window could not be created");
+	}
+
+	while (m_winObj->windowShouldClose()) {
+
+	}
+
+	this->~App();
+}
+
+
+void HayKyo_Core::App::onEvent(Event& e) {
+
+}
+
+HayKyo_Core::App::~App() {
+	m_winObj->~WindowObject();
 }

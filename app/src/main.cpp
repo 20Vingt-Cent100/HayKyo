@@ -2,16 +2,12 @@
 
 int main()
 {
-	HayKyo_Core::Application_Param param;
-		param.window_settings.height = 1200;
-		param.window_settings.width = 1800;
-		param.window_settings.application_name = "Vulkan Render";
-		param.window_settings.monitor = NULL;
-		param.window_settings.resizable = false;
-		//param.frame_rate = 60;
-		param.window_settings.appInfo.applicationName = "Vulkan";
-		param.window_settings.appInfo.applicationVersion = 1;
+	HayKyo_Core::WindowInfo appInfo;
+	appInfo.width = 200;
+	appInfo.height = 1000;
+	appInfo.videoMode = HayKyo_Core::WINDOWED;
+	appInfo.name = "Vulkan";
 
-
-	HayKyo_Core::Application app(&param);
+	HayKyo_Core::App game(appInfo);
+	game.Run();
 }

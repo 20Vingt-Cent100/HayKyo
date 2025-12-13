@@ -1,22 +1,22 @@
 #pragma once
-#include <cstdint>
 #include <Window.h>
+#include <Event.h>
+
 #include <memory>
 
-namespace HayKyo_Core{
-	struct Application_Param {
-		HayKyo_Core::Window_Settings window_settings;
-		uint16_t frame_rate;
-	};
-
-	class Application
+namespace HayKyo_Core {
+	class App
 	{
 	public:
-		Application(Application_Param* param);
-		~Application();
+		App(WindowInfo&);
+		~App();
+
+		void Run();
 
 	private:
-		Application_Param& m_param;
-		std::unique_ptr<Window> m_window;
+		std::unique_ptr<WindowObject> m_winObj = nullptr;
+		void onEvent(Event&);
 	};
+
+	
 }

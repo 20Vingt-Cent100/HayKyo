@@ -1,84 +1,36 @@
 #include <Window.h>
-#include <Event.h>
-#include <iostream>
 
-HayKyo_Core::Window::Window(Window_Settings *param) 
-	: m_param(*param), m_renderer()
+HayKyo_Core::WindowObject::WindowObject(WindowInfo& wInfo, std::function<void(Event&)> EventReceiver)
+	: sendEvent(EventReceiver)
 {
-	init();
-	loop();
-}
-
-HayKyo_Core::Window::~Window()
-{
-}
-
-int HayKyo_Core::Window::init()
-{
-	if (!glfwInit())
-		return -1;
-
-	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-	glfwWindowHint(GLFW_RESIZABLE, m_param.resizable);
-
-	m_window = glfwCreateWindow(m_param.width, m_param.height, m_param.application_name, m_param.monitor, NULL);
-
-	if (!m_window)
-	{
+	if (!glfwInit()) {
+		std::printf("GLFW not initialized");
 		glfwTerminate();
-		return -1;
 	}
 
-	uint32_t glfwExtensionCount = 0;
-	const char** glfwExtension;
+	GLFWmonitor* monitor;
 
-	glfwExtension = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-
-	m_renderer.bindAppInfo(&m_param.appInfo);
-	m_renderer.createInstance();
-
-
-	glfwSetKeyCallback(m_window, keyCallback);
-	return 0;
-}
-
-int HayKyo_Core::Window::loop()
-{
-	while (!glfwWindowShouldClose(m_window))
+	switch (wInfo.videoMode)
 	{
-		render();
-		swapBuffers();
-		pollEvent();
+	FULLSCREEN: monitor = glfwGetPrimaryMonitor();
+		break;
+	default: monitor = NULL;
+			break;
 	}
 
-	
-	return 0;
+	m_window = glfwCreateWindow(wInfo.width, wInfo.height, wInfo.name, monitor, NULL);
+
 }
 
-void HayKyo_Core::Window::render() {
-	
+int HayKyo_Core::WindowObject::windowShouldClose() {
+	return glfwWindowShouldClose(m_window);
 }
 
-void HayKyo_Core::Window::cleanup() {
-	m_renderer.destroyInstance();
+bool HayKyo_Core::WindowObject::isWindowNull() {
+	return (!m_window);
+}
 
+HayKyo_Core::WindowObject::~WindowObject() {
 	glfwDestroyWindow(m_window);
 	glfwTerminate();
-}
-
-void HayKyo_Core::Window::swapBuffers() {
-	glfwSwapBuffers(m_window);
-}
-
-void HayKyo_Core::Window::pollEvent() {
-	glfwPollEvents();
-	
-}
-
-void HayKyo_Core::Window::keyCallback(GLFWwindow* window,int key, int scancode, int action, int mods) {
-	std::cout << glfwGetKeyName(key, scancode) << std::endl;
-}
-
-void HayKyo_Core::Window::mouseActionCallBack(GLFWwindow* window, double xpos, double ypos) {
-
 }

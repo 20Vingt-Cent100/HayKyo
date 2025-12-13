@@ -32,5 +32,73 @@ void HayKyo_Core::Renderer::destroyInstance() {
 	vkDestroyInstance(m_instance, nullptr);
 }
 
+void HayKyo_Core::Renderer::initVulkan() {
+	if (m_createInfo.enabledExtensionCount != NULL && m_createInfo.ppEnabledExtensionNames != NULL)
+	{
+		createInstance();
+		pickphysicalDevices();
+		createLogicalDevice();
+	}
+}
+
+void HayKyo_Core::Renderer::pickphysicalDevices() {
+	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+
+	uint32_t deviceCount = 0;
+	vkEnumeratePhysicalDevices(m_instance, &deviceCount, nullptr);
+
+	if (deviceCount == 0)
+		throw std::runtime_error("Could Not find a compatible GPU");
+
+	std::vector<VkPhysicalDevice> devices(deviceCount);
+	vkEnumeratePhysicalDevices(m_instance, &deviceCount, devices.data());
+
+	for (const auto& device : devices) {
+		if (isDeviceSuitable(device)) {
+			physicalDevice = device;
+			break;
+		}
+	}
+
+	if (physicalDevice == VK_NULL_HANDLE)
+		throw std::runtime_error("No suitable GPU");
+}
+
+bool HayKyo_Core::Renderer::isDeviceSuitable(VkPhysicalDevice device) {
+	HayKyo_Core::QueueFamilyIndices indices = findQueueFamilies(device);
+
+
+
+	return indices.isComplete();
+}
+
+HayKyo_Core::QueueFamilyIndices HayKyo_Core::Renderer::findQueueFamilies(VkPhysicalDevice device) {
+	HayKyo_Core::QueueFamilyIndices indices;
+
+	uint32_t queueFamilyCount = 0;
+	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
+
+	std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+	vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
+
+	int i = 0;
+	for (const auto& queueFamily : queueFamilies) {
+		if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT) {
+			indices.graphicsFamily = i;
+		}
+
+		if (indices.isComplete())
+			break;
+
+		i++;
+	}
+
+	return indices;
+}
+
+void HayKyo_Core::Renderer::createLogicalDevice() {
+
+}
+
 
 HayKyo_Core::Renderer::~Renderer(){}
