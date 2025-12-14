@@ -10,6 +10,7 @@
 
 //Standard Lib
 #include <functional>
+#include <iostream>
 /*--------------------------*/
 
 namespace HayKyo_Core {
@@ -28,14 +29,20 @@ namespace HayKyo_Core {
 		uint16_t width;
 		uint16_t height;
 		const char* name;
+		bool resizable = false;
 
+		VideoMode videoMode = WINDOWED;
+	};
 
-		VideoMode videoMode;
+	struct Extenstions {
+		std::vector<const char*> extensions;
 	};
 
 	class WindowObject
 	{
 	public:
+		Extenstions ext{};
+
 		WindowObject(WindowInfo& wInfo, std::function<void(Event&)> EventReceiver); //Event receiver will receive events thrown by windowObj
 		~WindowObject();
 

@@ -1,5 +1,6 @@
 #include <Window.h>
 
+/*-- Constructor of Window Object --*/
 HayKyo_Core::WindowObject::WindowObject(WindowInfo& wInfo, std::function<void(Event&)> EventReceiver)
 	: sendEvent(EventReceiver)
 {
@@ -8,13 +9,22 @@ HayKyo_Core::WindowObject::WindowObject(WindowInfo& wInfo, std::function<void(Ev
 		glfwTerminate();
 	}
 
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+	glfwWindowHint(GLFW_RESIZABLE, wInfo.resizable);
+
 	m_window = glfwCreateWindow(wInfo.width, wInfo.height, wInfo.name, NULL, NULL);
 
 	glfwSetWindowUserPointer(m_window, this);
 
+	//Sets extensions
+	uint32_t extensionCount = 0;
+	const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&extensionCount);
+	ext.extensions.assign(glfwExtensions, glfwExtensions + extensionCount);
+
 	setCallBacks();
 }
 
+/*-- Setup every event callbacks --*/
 void HayKyo_Core::WindowObject::setCallBacks() {
 	glfwSetKeyCallback(m_window, keyInputCallbacks);
 	glfwSetMouseButtonCallback(m_window, mouseInputCallbacks);

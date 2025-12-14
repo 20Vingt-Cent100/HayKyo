@@ -1,9 +1,20 @@
 #include <Application.h>
 
 HayKyo_Core::App::App(WindowInfo& wInfo)
-	: m_winObj(std::make_unique<WindowObject>(wInfo, [this](Event& e) {this->onEvent(e); }))
+	: m_winObj(std::make_unique<WindowObject>(wInfo, [this](Event& e) {this->onEvent(e); })), m_renderer(std::make_unique<Renderer>())
 {
+	setupRenderer(wInfo.name);
+}
 
+void HayKyo_Core::App::setupRenderer(const char* appName) {
+
+	try {
+		m_renderer->initVulkan(appName, m_winObj->ext.extensions);
+	}
+	catch (std::runtime_error err) {
+		std::printf(err.what());
+	}
+	
 }
 
 void HayKyo_Core::App::run() {

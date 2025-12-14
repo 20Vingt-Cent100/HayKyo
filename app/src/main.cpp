@@ -7,6 +7,7 @@ int main()
 	appInfo.height = 600;
 	appInfo.videoMode = HayKyo_Core::WINDOWED;
 	appInfo.name = "Vulkan";
+	appInfo.resizable = false;
 
 	HayKyo_Core::App game(appInfo);
 	game.run();

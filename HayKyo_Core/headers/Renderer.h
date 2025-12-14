@@ -1,53 +1,36 @@
 #pragma once
-#include "vulkan/vulkan.h"
-#include <stdexcept>
+#include <vulkan/vulkan.h>
+
+#include <iostream>
 #include <vector>
 #include <optional>
 
 namespace HayKyo_Core {
-	struct ApplicationInfo {
-		const char* applicationName;
-		uint32_t applicationVersion;
-	};
-
 	struct QueueFamilyIndices {
 		std::optional<uint32_t> graphicsFamily;
 
-		bool isComplete() {
-			return graphicsFamily.has_value();
-		}
+		bool isComplete() {return graphicsFamily.has_value();}
 	};
 
-	class Renderer {
-	private:
-		VkInstance m_instance = nullptr;
-		VkDevice m_device = nullptr;
-
-		VkApplicationInfo m_appInfo{};
-		VkInstanceCreateInfo m_createInfo{};
-
-
-
-		void pickphysicalDevices();
-		void createInstance();
-
-		QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
-		bool isDeviceSuitable(VkPhysicalDevice device);
-
-		void createLogicalDevice();
-
+	class Renderer
+	{
 	public:
 		Renderer();
 		~Renderer();
 
-		void bindAppInfo(ApplicationInfo* appInfo);
-		void bindExtension(uint32_t extensionCount, const char** extensions);
+		void initVulkan(const char* appName, const std::vector<const char*>& extensions);
 		
-		void destroyInstance();
-		void initVulkan();
-		
+	private:
+		VkInstance m_instance;
+		VkPhysicalDevice m_physicalDevice = VK_NULL_HANDLE;
+		VkDevice m_device;
+
+		void createInstance(const char* appName, const std::vector<const char*>& extensions);
+
+		void pickPhysicalDevice();
+		bool isDeviceSuitable(VkPhysicalDevice device);
+		QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
+
+		void createLogicalDevice();
 	};
-
-
-	
 }

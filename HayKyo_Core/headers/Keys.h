@@ -2,7 +2,7 @@
 #include "GLFW/glfw3.h"
 
 namespace HayKyo_Core {
-	static const enum STATE {
+	const enum STATE {
 		PRESSED = 0,
 		RELEASED = 1,
 		HOLD = 2,
@@ -10,7 +10,7 @@ namespace HayKyo_Core {
 		UNKNOWN = -1
 	};
 
-	static const struct KEYS {
+	const struct KEYS {
 		int A = glfwGetKeyScancode(GLFW_KEY_A);
 		int B = glfwGetKeyScancode(GLFW_KEY_B);
 		int C = glfwGetKeyScancode(GLFW_KEY_C);
@@ -33,7 +33,7 @@ namespace HayKyo_Core {
 		int T = glfwGetKeyScancode(GLFW_KEY_T);
 	};
 
-	static const enum MOUSE_INPUT {
+	const enum MOUSE_INPUT {
 		LEFT_CLICK_BUTTON = 0,
 		RIGHT_CLICK_BUTTON = 1,
 
