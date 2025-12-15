@@ -24,6 +24,7 @@ namespace HayKyo_Core {
 		VkInstance m_instance;
 		VkPhysicalDevice m_physicalDevice = VK_NULL_HANDLE;
 		VkDevice m_device;
+		VkQueue m_graphicQueue;
 
 		void createInstance(const char* appName, const std::vector<const char*>& extensions);
 

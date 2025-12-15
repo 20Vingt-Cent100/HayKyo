@@ -35,7 +35,7 @@ void HayKyo_Core::App::appLoop() {
 
 
 void HayKyo_Core::App::onEvent(Event& e) {
-
+	
 }
 
 HayKyo_Core::App::~App() {

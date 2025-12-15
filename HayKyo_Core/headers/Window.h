@@ -51,7 +51,7 @@ namespace HayKyo_Core {
 		int windowShouldClose();
 	private:
 		GLFWwindow* m_window = nullptr;
-		std::function<void(Event&)>& sendEvent;
+		std::function<void(Event&)> sendEvent;
 
 		void setCallBacks();
 

@@ -36,7 +36,7 @@ void HayKyo_Core::WindowObject::keyInputCallbacks(GLFWwindow* window, int key, i
 }
 
 void HayKyo_Core::WindowObject::mouseInputCallbacks(GLFWwindow* window, int button, int action, int mods) {
-	auto* self = static_cast<WindowObject*>(glfwGetWindowUserPointer(window));
+	WindowObject* self = static_cast<WindowObject*>(glfwGetWindowUserPointer(window));
 
 	if (!self)
 		return;
@@ -93,6 +93,14 @@ void HayKyo_Core::WindowObject::handleMouseInput(int button, int action, int mod
 	mouseInputEvent.state = state;
 
 	sendEvent(mouseInputEvent);
+}
+
+void HayKyo_Core::WindowObject::handleKeyInput(int key, int scancode, int action, int mods) {
+
+}
+
+void HayKyo_Core::WindowObject::handleMouseMovement(double xpos, double ypos) {
+
 }
 
 int HayKyo_Core::WindowObject::windowShouldClose() {
